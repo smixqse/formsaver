@@ -1,0 +1,22 @@
+{
+  "name": "formsaver",
+  "version": "1.0.0",
+  "description": "A library to backup unsubmitted web forms powered by GUN",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify index.js -t ascjsify -o dist/formSaver.js",
+    "genDocs": "./node_modules/.bin/jsdoc index.js -d docs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ascjsify": "^1.0.0",
+    "gun": "^0.2020.520",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.4"
+  }
+}
