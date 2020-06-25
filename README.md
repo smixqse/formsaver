@@ -3,6 +3,12 @@
 
 FormSaver will enable your users to restore their current progress on any device by sharing a code (or a link).
 
+## Installation
+Just add this script tag into your HTML:
+```html
+<script src="https://cdn.jsdelivr.net/gh/smixqse/formsaver/dist/formSaver.js"></script>
+```
+
 ## Usage
 Create a form, naming it and its inputs, in your HTML:
 ```html
