@@ -1,5 +1,5 @@
 {
-  "name": "formsaver",
+  "name": "@smixqse/formsaver",
   "version": "1.0.0",
   "description": "A library to backup unsubmitted web forms powered by GUN",
   "main": "index.js",
@@ -18,6 +18,10 @@
     "save"
   ],
   "author": "smixqse",
+  "repository": {
+    "type": "git",
+    "url:": "git://https://github.com/smixqse/formsaver.git"
+  },
   "license": "ISC",
   "dependencies": {
     "gun": "^0.2020.520"

@@ -13,11 +13,11 @@ The main class will then be available at `window.FormSaver`.
 ### NPM method
 Install formsaver as a dependency:
 ```bash
-npm install --save formsaver
+npm install --save @smixqse/formsaver
 ```
 Import it in your JS file:
 ```js
-import FormSaver from 'formsaver';
+import FormSaver from '@smixqse/formsaver';
 ```
 
 ## Usage
