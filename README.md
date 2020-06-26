@@ -76,4 +76,4 @@ const rawData = await fs.getRawBackup();
 await fs.setRawBackup(objectToSave);
 ```
 
-[Click here to see full docs](https://smixqse.github.io/formsaver/FormSaver.html) - [See GitHub package](https://github.com/smixqse/formsaver/packages/288952)
+[Click here to see full docs](https://smixqse.github.io/formsaver/FormSaver.html) - [See NPM Package](https://npmjs.com/@smixqse/formsaver/)

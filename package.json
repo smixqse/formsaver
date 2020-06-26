@@ -20,7 +20,6 @@
     "type": "git",
     "url": "git://github.com/smixqse/formsaver.git"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "license": "ISC",
   "dependencies": {
     "gun": "^0.2020.520"
