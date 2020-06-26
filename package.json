@@ -9,7 +9,7 @@
   "unusedScripts": {
     "genDocs": "./node_modules/.bin/jsdoc index.js -d docs",
     "prepare": "npm run build && npm run genDocs"
-  }
+  },
   "keywords": [
     "form",
     "web",
