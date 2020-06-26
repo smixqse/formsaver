@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime.js";
 import Gun from "gun/gun";
 import SEA from "gun/sea"
 import 'gun/lib/promise.js';

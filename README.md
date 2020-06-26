@@ -4,11 +4,21 @@
 FormSaver will enable your users to restore their current progress on any device by sharing a code (or a link).
 
 ## Installation
+### Script tag method
 Just add this script tag into your HTML:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/smixqse/formsaver/dist/formSaver.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/smixqse/formsaver/dist/formSaver.min.js"></script>
 ```
-The main class will be available at `window.FormSaver`
+The main class will then be available at `window.FormSaver`.
+### NPM method
+Install formsaver as a dependency:
+```bash
+npm install --save formsaver
+```
+Import it in your JS file:
+```js
+import FormSaver from 'formsaver';
+```
 
 ## Usage
 Create a form, naming it and its inputs, in your HTML:
