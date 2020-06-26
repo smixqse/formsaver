@@ -4,10 +4,12 @@
   "description": "A library to backup unsubmitted web forms powered by GUN",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -t babelify -o dist/formSaver.js && browserify index.js -t babelify -p tinyify -o dist/formSaver.min.js",
+    "build": "browserify index.js -t babelify -o dist/formSaver.js && browserify index.js -t babelify -p tinyify -o dist/formSaver.min.js"
+  },
+  "unusedScripts": {
     "genDocs": "./node_modules/.bin/jsdoc index.js -d docs",
     "prepare": "npm run build && npm run genDocs"
-  },
+  }
   "keywords": [
     "form",
     "web",
