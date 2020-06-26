@@ -6,7 +6,7 @@
   "scripts": {
     "build": "browserify index.js -t babelify -o dist/formSaver.js && browserify index.js -t babelify -p tinyify -o dist/formSaver.min.js",
     "genDocs": "./node_modules/.bin/jsdoc index.js -d docs",
-    "prepare": "npm run build && npm run genDocs"
+    "prepare": "npm run build"
   },
   "keywords": [
     "form",
@@ -18,7 +18,7 @@
   "author": "smixqse",
   "repository": {
     "type": "git",
-    "url:": "git://https://github.com/smixqse/formsaver.git"
+    "url": "git://https://github.com/smixqse/formsaver.git"
   },
   "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "license": "ISC",
