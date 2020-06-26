@@ -8,6 +8,7 @@ Just add this script tag into your HTML:
 ```html
 <script src="https://cdn.jsdelivr.net/gh/smixqse/formsaver/dist/formSaver.js"></script>
 ```
+The main class will be available at `window.FormSaver`
 
 ## Usage
 Create a form, naming it and its inputs, in your HTML:

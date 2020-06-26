@@ -11,7 +11,13 @@ class FormSaver {
     _user;
     _isUserAvailable = false;
 
-    constructor (peers = ["https://gun-eu.herokuapp.com/gun"], gun = Gun(peers)) {
+    static newGunInstance = Gun;
+
+    /**
+     * FormSaver constructor
+     * @param {object=} gun - An optional existing GUN instance
+     */
+    constructor (gun = Gun(["https://gun-eu.herokuapp.com/gun"])) {
         this._gun = gun;
     };
 
@@ -54,22 +60,16 @@ class FormSaver {
     };
 
     /**
-     * @typedef BackupSetResult
-     * @property {string} status Always is "saved"
-     * @property {string} backup Your backup key
-     */
-
-    /**
      * Set raw backup data
      * @param {object} data - Raw data object to save
-     * @returns {Promise<BackupSetResult>} Save confirmation and backup key
+     * @returns {Promise<string>} If resolved, your backup key
      */
     setRawBackup(data) {
         return new Promise (async (resolve, reject) => {
             if (!this._isUserAvailable) this._createUser();
             setTimeout(async () => {
                 const sent = await this._user.get("formOptions").promPut(await SEA.encrypt(data, this._keys));
-                resolve({status: "saved", "backup": btoa(JSON.stringify(this._keys))});
+                resolve(btoa(JSON.stringify(this._keys)));
             }, 500)
         });
     };
@@ -118,7 +118,7 @@ class FormSaver {
     /**
      * Fetches your current form data and saves it to the backup
      * @param {string | HTMLFormElement} form - Form name or form element
-     * @returns {Promise<BackupSetResult>} Save confirmation and backup key
+     * @returns {Promise<string>} If resolved, your backup key
      */
     setBackup(form) {
         return new Promise (async (resolve, reject) => {
@@ -179,7 +179,7 @@ class FormSaver {
             });
             setTimeout(async () => {
                 const sent = await this._user.get("formOptions").promPut(await SEA.encrypt(formToSend, this._keys));
-                resolve({status: "saved", "backup": btoa(JSON.stringify(this._keys))});
+                resolve(btoa(JSON.stringify(this._keys)));
             }, 500);
         })
     };

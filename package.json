@@ -4,19 +4,30 @@
   "description": "A library to backup unsubmitted web forms powered by GUN",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -t ascjsify -o dist/formSaver.js",
-    "genDocs": "./node_modules/.bin/jsdoc index.js -d docs"
+    "build": "browserify index.js -t babelify -o dist/formSaver.js && browserify index.js -t babelify -p tinyify -o dist/formSaver.min.js",
+    "genDocs": "./node_modules/.bin/jsdoc index.js -d docs",
+    "prepare": "npm run build && npm run genDocs"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "form",
+    "web",
+    "html",
+    "gun",
+    "save"
+  ],
+  "author": "smixqse",
   "license": "ISC",
   "dependencies": {
-    "ascjsify": "^1.0.0",
-    "gun": "^0.2020.520",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "gun": "^0.2020.520"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.4"
+    "@babel/core": "^7.10.3",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/preset-env": "^7.10.3",
+    "babelify": "^10.0.0",
+    "jsdoc": "^3.6.4",
+    "tinyify": "^2.5.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   }
 }

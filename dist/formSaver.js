@@ -2313,211 +2313,552 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
 },{"process/browser.js":4,"timers":5}],6:[function(require,module,exports){
-'use strict';
-const Gun = (m => m.__esModule ? m.default : m)(require("gun/gun"));
-const SEA = (m => m.__esModule ? m.default : m)(require("gun/sea"))
-require('gun/lib/promise.js');
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _gun = _interopRequireDefault(require("gun/gun"));
+
+var _sea = _interopRequireDefault(require("gun/sea"));
+
+require("gun/lib/promise.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
  * Main FormSaver class
 */
-class FormSaver {
-    _gun;
-    _keys;
-    _user;
-    _isUserAvailable = false;
+var FormSaver = /*#__PURE__*/function () {
+  /**
+   * FormSaver constructor
+   * @param {object=} gun - An optional existing GUN instance
+   */
+  function FormSaver() {
+    var gun = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _gun["default"])(["https://gun-eu.herokuapp.com/gun"]);
 
-    constructor (peers = ["https://gun-eu.herokuapp.com/gun"], gun = Gun(peers)) {
-        this._gun = gun;
-    };
+    _classCallCheck(this, FormSaver);
+
+    _defineProperty(this, "_gun", void 0);
+
+    _defineProperty(this, "_keys", void 0);
+
+    _defineProperty(this, "_user", void 0);
+
+    _defineProperty(this, "_isUserAvailable", false);
+
+    this._gun = gun;
+  }
+
+  _createClass(FormSaver, [{
+    key: "submitBackup",
 
     /**
      * Submit an existing backup key
      * @param {string} backup - Encoded backup key
      * @returns {Promise<string>} Confirmation of submission
      */
-    submitBackup(backup) {
-        return new Promise (async (resolve, reject) => {
-            this._keys = JSON.parse(atob(backup));
-            this._user = this._gun.user();
-            this._user.auth(this._keys);
-            this._user.pair = this._keys;
-            this._isUserAvailable = true;
-            setTimeout(() => {resolve("Submitted");}, 500);
-        });
-    };
+    value: function submitBackup(backup) {
+      var _this = this;
 
-    async _createUser() {
-        const pair = await SEA.pair();
-        this._keys = pair;
-        this._user = this._gun.user();
-        this._user.auth(pair);
-        this._user.pair = pair;
-        this._isUserAvailable = true;
-    };
+      return new Promise( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(resolve, reject) {
+          return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _this._keys = JSON.parse(atob(backup));
+                  _this._user = _this._gun.user();
+
+                  _this._user.auth(_this._keys);
+
+                  _this._user.pair = _this._keys;
+                  _this._isUserAvailable = true;
+                  setTimeout(function () {
+                    resolve("Submitted");
+                  }, 500);
+
+                case 6:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function (_x, _x2) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+    }
+  }, {
+    key: "_createUser",
+    value: function () {
+      var _createUser2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var pair;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _sea["default"].pair();
+
+              case 2:
+                pair = _context2.sent;
+                this._keys = pair;
+                this._user = this._gun.user();
+
+                this._user.auth(pair);
+
+                this._user.pair = pair;
+                this._isUserAvailable = true;
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function _createUser() {
+        return _createUser2.apply(this, arguments);
+      }
+
+      return _createUser;
+    }()
+  }, {
+    key: "getRawBackup",
 
     /**
      * Get raw backup data
      * @returns {object} - Raw backup data
      */
-    getRawBackup() {
-        return new Promise (async (resolve, reject) => {
-            if (!this._isUserAvailable) {reject("No user available"); return};
-            const data = await SEA.decrypt((await this._user.get("formOptions").promOnce()).data, this._keys);
-            if (data === null || data === undefined) {reject("Data is null");} else {resolve(data);};
-        });
+    value: function getRawBackup() {
+      var _this2 = this;
 
-    };
+      return new Promise( /*#__PURE__*/function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(resolve, reject) {
+          var data;
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  if (_this2._isUserAvailable) {
+                    _context3.next = 3;
+                    break;
+                  }
 
-    /**
-     * @typedef BackupSetResult
-     * @property {string} status Always is "saved"
-     * @property {string} backup Your backup key
-     */
+                  reject("No user available");
+                  return _context3.abrupt("return");
+
+                case 3:
+                  ;
+                  _context3.t0 = _sea["default"];
+                  _context3.next = 7;
+                  return _this2._user.get("formOptions").promOnce();
+
+                case 7:
+                  _context3.t1 = _context3.sent.data;
+                  _context3.t2 = _this2._keys;
+                  _context3.next = 11;
+                  return _context3.t0.decrypt.call(_context3.t0, _context3.t1, _context3.t2);
+
+                case 11:
+                  data = _context3.sent;
+
+                  if (data === null || data === undefined) {
+                    reject("Data is null");
+                  } else {
+                    resolve(data);
+                  }
+
+                  ;
+
+                case 14:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        return function (_x3, _x4) {
+          return _ref2.apply(this, arguments);
+        };
+      }());
+    }
+  }, {
+    key: "setRawBackup",
 
     /**
      * Set raw backup data
      * @param {object} data - Raw data object to save
-     * @returns {Promise<BackupSetResult>} Save confirmation and backup key
+     * @returns {Promise<string>} If resolved, your backup key
      */
-    setRawBackup(data) {
-        return new Promise (async (resolve, reject) => {
-            if (!this._isUserAvailable) this._createUser();
-            setTimeout(async () => {
-                const sent = await this._user.get("formOptions").promPut(await SEA.encrypt(data, this._keys));
-                resolve({status: "saved", "backup": btoa(JSON.stringify(this._keys))});
-            }, 500)
-        });
-    };
+    value: function setRawBackup(data) {
+      var _this3 = this;
+
+      return new Promise( /*#__PURE__*/function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(resolve, reject) {
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  if (!_this3._isUserAvailable) _this3._createUser();
+                  setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+                    var sent;
+                    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                      while (1) {
+                        switch (_context4.prev = _context4.next) {
+                          case 0:
+                            _context4.t0 = _this3._user.get("formOptions");
+                            _context4.next = 3;
+                            return _sea["default"].encrypt(data, _this3._keys);
+
+                          case 3:
+                            _context4.t1 = _context4.sent;
+                            _context4.next = 6;
+                            return _context4.t0.promPut.call(_context4.t0, _context4.t1);
+
+                          case 6:
+                            sent = _context4.sent;
+                            resolve(btoa(JSON.stringify(_this3._keys)));
+
+                          case 8:
+                          case "end":
+                            return _context4.stop();
+                        }
+                      }
+                    }, _callee4);
+                  })), 500);
+
+                case 2:
+                case "end":
+                  return _context5.stop();
+              }
+            }
+          }, _callee5);
+        }));
+
+        return function (_x5, _x6) {
+          return _ref3.apply(this, arguments);
+        };
+      }());
+    }
+  }, {
+    key: "getBackup",
 
     /**
      * Fetches your backup data and displays them on the form
      * @param {string | HTMLFormElement} form - Form name or form element
      * @returns {Promise<object>} Fetched raw backup data
      */
-    getBackup(form) {
-        return new Promise((resolve, reject) => {
-            if (!this._isUserAvailable) {reject("No user available"); return};
-            setTimeout(async () => {
-                var data = await SEA.decrypt((await this._user.get("formOptions").promOnce()).data, this._user.pair);
-                var elem = {};
-                if (typeof form === "string") {
-                    elem = document.querySelector(`form[name=${form}]`) || {}
-                } else {
-                    element = form || {}
-                };
-                if (elem === {}) {
-                    reject("Form element not found");
-                    return
-                };
-                if (typeof data !== "object") {
-                    reject("Fetched data isn't an object");
-                    return
-                };
-                elem.querySelectorAll("input, select").forEach(function (element) {
+    value: function getBackup(form) {
+      var _this4 = this;
+
+      return new Promise(function (resolve, reject) {
+        if (!_this4._isUserAvailable) {
+          reject("No user available");
+          return;
+        }
+
+        ;
+        setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+          var data, elem;
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                  _context6.t0 = _sea["default"];
+                  _context6.next = 3;
+                  return _this4._user.get("formOptions").promOnce();
+
+                case 3:
+                  _context6.t1 = _context6.sent.data;
+                  _context6.t2 = _this4._user.pair;
+                  _context6.next = 7;
+                  return _context6.t0.decrypt.call(_context6.t0, _context6.t1, _context6.t2);
+
+                case 7:
+                  data = _context6.sent;
+                  elem = {};
+
+                  if (typeof form === "string") {
+                    elem = document.querySelector("form[name=".concat(form, "]")) || {};
+                  } else {
+                    element = form || {};
+                  }
+
+                  ;
+
+                  if (!(elem === {})) {
+                    _context6.next = 14;
+                    break;
+                  }
+
+                  reject("Form element not found");
+                  return _context6.abrupt("return");
+
+                case 14:
+                  ;
+
+                  if (!(_typeof(data) !== "object")) {
+                    _context6.next = 18;
+                    break;
+                  }
+
+                  reject("Fetched data isn't an object");
+                  return _context6.abrupt("return");
+
+                case 18:
+                  ;
+                  elem.querySelectorAll("input, select").forEach(function (element) {
                     if (Object.keys(data).includes(element.name)) {
-                        if (data[element.name].type === "text") { 
-                            element.value = data[element.name].val;
-                        } else if (data[element.name].type === "radio" && data[element.name].val === element.value) {
-                            element.checked = true;
-                        } else if (data[element.name].type === "select") {
-                            element.value = data[element.name].val;
-                        } else if (data[element.name].type === "check") {
-                            element.checked = data[element.name].val;
-                        };
-                    };
-                });
-                resolve(data);
-            }, 500);
-        });
-    };
+                      if (data[element.name].type === "text") {
+                        element.value = data[element.name].val;
+                      } else if (data[element.name].type === "radio" && data[element.name].val === element.value) {
+                        element.checked = true;
+                      } else if (data[element.name].type === "select") {
+                        element.value = data[element.name].val;
+                      } else if (data[element.name].type === "check") {
+                        element.checked = data[element.name].val;
+                      }
+
+                      ;
+                    }
+
+                    ;
+                  });
+                  resolve(data);
+
+                case 21:
+                case "end":
+                  return _context6.stop();
+              }
+            }
+          }, _callee6);
+        })), 500);
+      });
+    }
+  }, {
+    key: "setBackup",
+
     /**
      * Fetches your current form data and saves it to the backup
      * @param {string | HTMLFormElement} form - Form name or form element
-     * @returns {Promise<BackupSetResult>} Save confirmation and backup key
+     * @returns {Promise<string>} If resolved, your backup key
      */
-    setBackup(form) {
-        return new Promise (async (resolve, reject) => {
-            if (!this._isUserAvailable) this._createUser();
-            var elem = {};
-            if (typeof form === "string") {elem = document.querySelector(`form[name=${form}]`) || {}} else {element = form || {}};
-            if (elem === {}) {reject("Form element not found"); return};
-            var formToSend = {};
-            elem.querySelectorAll("input, select").forEach(function (element) {
-                if (element.type === "text") {
-                    formToSend[element.name] = {
+    value: function setBackup(form) {
+      var _this5 = this;
+
+      return new Promise( /*#__PURE__*/function () {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(resolve, reject) {
+          var elem, formToSend;
+          return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            while (1) {
+              switch (_context8.prev = _context8.next) {
+                case 0:
+                  if (!_this5._isUserAvailable) _this5._createUser();
+                  elem = {};
+
+                  if (typeof form === "string") {
+                    elem = document.querySelector("form[name=".concat(form, "]")) || {};
+                  } else {
+                    element = form || {};
+                  }
+
+                  ;
+
+                  if (!(elem === {})) {
+                    _context8.next = 7;
+                    break;
+                  }
+
+                  reject("Form element not found");
+                  return _context8.abrupt("return");
+
+                case 7:
+                  ;
+                  formToSend = {};
+                  elem.querySelectorAll("input, select").forEach(function (element) {
+                    if (element.type === "text") {
+                      formToSend[element.name] = {
                         type: "text",
                         val: element.value
-                    };
-                } else if (element.type === "radio") {
-                    if (element.checked) {
+                      };
+                    } else if (element.type === "radio") {
+                      if (element.checked) {
                         formToSend[element.name] = {
+                          type: "radio",
+                          val: element.value
+                        };
+                      } else {
+                        if (!formToSend[element.name]) {
+                          formToSend[element.name] = {
                             type: "radio",
-                            val: element.value
-                        };
-                    } else {
-                        if (!formToSend[element.name]) {
-                            formToSend[element.name] = {
-                                type: "radio",
-                                val: ""
-                            };
-                        };
-                    };
-                } else if (element.tagName.toLowerCase() === "select") {
-                    if (element.value.length > 0) {
+                            val: ""
+                          };
+                        }
+
+                        ;
+                      }
+
+                      ;
+                    } else if (element.tagName.toLowerCase() === "select") {
+                      if (element.value.length > 0) {
                         formToSend[element.name] = {
+                          type: "select",
+                          val: element.value
+                        };
+                      } else {
+                        if (!formToSend[element.name]) {
+                          formToSend[element.name] = {
                             type: "select",
-                            val: element.value
-                        };
-                    } else {
-                        if (!formToSend[element.name]) {
-                            formToSend[element.name] = {
-                                type: "select",
-                                val: ""
-                            };
-                        };
-                    };
-                } else if (element.type === "checkbox") {
-                    if (element.checked) {
+                            val: ""
+                          };
+                        }
+
+                        ;
+                      }
+
+                      ;
+                    } else if (element.type === "checkbox") {
+                      if (element.checked) {
                         formToSend[element.name] = {
-                            type: "check",
-                            val: true
+                          type: "check",
+                          val: true
                         };
-                    } else {
+                      } else {
                         if (!formToSend[element.name]) {
-                            formToSend[element.name] = {
-                                type: "check",
-                                val: false
-                            };
-                        };
-                    };
-                };
-            });
-            setTimeout(async () => {
-                const sent = await this._user.get("formOptions").promPut(await SEA.encrypt(formToSend, this._keys));
-                resolve({status: "saved", "backup": btoa(JSON.stringify(this._keys))});
-            }, 500);
-        })
-    };
+                          formToSend[element.name] = {
+                            type: "check",
+                            val: false
+                          };
+                        }
+
+                        ;
+                      }
+
+                      ;
+                    }
+
+                    ;
+                  });
+                  setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+                    var sent;
+                    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                      while (1) {
+                        switch (_context7.prev = _context7.next) {
+                          case 0:
+                            _context7.t0 = _this5._user.get("formOptions");
+                            _context7.next = 3;
+                            return _sea["default"].encrypt(formToSend, _this5._keys);
+
+                          case 3:
+                            _context7.t1 = _context7.sent;
+                            _context7.next = 6;
+                            return _context7.t0.promPut.call(_context7.t0, _context7.t1);
+
+                          case 6:
+                            sent = _context7.sent;
+                            resolve(btoa(JSON.stringify(_this5._keys)));
+
+                          case 8:
+                          case "end":
+                            return _context7.stop();
+                        }
+                      }
+                    }, _callee7);
+                  })), 500);
+
+                case 11:
+                case "end":
+                  return _context8.stop();
+              }
+            }
+          }, _callee8);
+        }));
+
+        return function (_x7, _x8) {
+          return _ref6.apply(this, arguments);
+        };
+      }());
+    }
+  }, {
+    key: "discardBackup",
 
     /**
      * Discards saved data to clean up memory
      */
-    async discardBackup () {
-        if (!this._isUserAvailable) return;
-        await this._user.get("formOptions").promPut(null);
-        this._user.delete();
-        this._user = this._gun.user();
-        this._isUserAvailable = false;
-        this._keys = {};
-        localStorage["gun/"] = {};
-        localStorage["gap/gun/"] = {};
-    };
-};
+    value: function () {
+      var _discardBackup = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                if (this._isUserAvailable) {
+                  _context9.next = 2;
+                  break;
+                }
 
+                return _context9.abrupt("return");
+
+              case 2:
+                _context9.next = 4;
+                return this._user.get("formOptions").promPut(null);
+
+              case 4:
+                this._user["delete"]();
+
+                this._user = this._gun.user();
+                this._isUserAvailable = false;
+                this._keys = {};
+                localStorage["gun/"] = {};
+                localStorage["gap/gun/"] = {};
+
+              case 10:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, this);
+      }));
+
+      function discardBackup() {
+        return _discardBackup.apply(this, arguments);
+      }
+
+      return discardBackup;
+    }()
+  }]);
+
+  return FormSaver;
+}();
+
+_defineProperty(FormSaver, "newGunInstance", _gun["default"]);
+
+;
 if (window && !window.FormSaver) window.FormSaver = FormSaver;
+var _default = FormSaver;
+exports["default"] = _default;
 
-Object.defineProperty(exports, '__esModule', {value: true}).default = FormSaver;
 },{"gun/gun":7,"gun/lib/promise.js":8,"gun/sea":9}],7:[function(require,module,exports){
 (function (global,setImmediate){
 ;(function(){
