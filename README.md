@@ -75,3 +75,5 @@ If you want to use it with other input types or you want to have more control, y
 const rawData = await fs.getRawBackup();
 await fs.setRawBackup(objectToSave);
 ```
+
+[Click here to see full docs](https://smixqse.github.io/formsaver/FormSaver.html) - [See NPM package](https://www.npmjs.com/package/@smixqse/formsaver/)
