@@ -7,7 +7,7 @@ FormSaver will enable your users to restore their current progress on any device
 ### Script tag method
 Just add this script tag into your HTML:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/smixqse/formsaver/dist/formSaver.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@smixqse/formsaver/dist/formSaver.min.js"></script>
 ```
 The main class will then be available at `window.FormSaver`.
 ### NPM method
@@ -42,14 +42,14 @@ Every time the user changes input, call `<FormSaver>.setBackup()`, using the for
 ```js
 document.myForm.querySelectorAll("input").forEach(function (elem) {
     elem.addEventListener(function (e) {
-        var result = await fs.setBackup("myForm");
+        var backupKey = await fs.setBackup("myForm");
         // or
-        var result = await fs.setBackup(document.myForm);
-        const backupKey = response.backup;
+        var backupKey = await fs.setBackup(document.querySelector(`form[name=myForm]`));
+        // save the backupKey somewhere to access the saved form later
     });
 })
 ```
-A backup key will be generated and can be accessed in the promise result: `result.backup`
+A backup key will be generated and can be accessed as the promise result.
 
 When the user comes back later, request the backup key and submit it:
 ```js
@@ -66,14 +66,18 @@ fs.discardBackup();
 ```
 Currently it works with:
 - text inputs
+- number inputs
 - radio inputs
 - select inputs
 - checkbox inputs
+- date and time inputs
+- email and phone inputs
+- color inputs
 
 If you want to use it with other input types or you want to have more control, you can save and get raw data, then apply it into the form manually:
 ```js
 const rawData = await fs.getRawBackup();
-await fs.setRawBackup(objectToSave);
+const backupKey = await fs.setRawBackup(objectToSave);
 ```
 
 [Click here to see full docs](https://smixqse.github.io/formsaver/FormSaver.html) - [See NPM Package](https://npmjs.com/@smixqse/formsaver/)

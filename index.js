@@ -101,7 +101,7 @@ class FormSaver {
                 };
                 elem.querySelectorAll("input, select").forEach(function (element) {
                     if (Object.keys(data).includes(element.name)) {
-                        if (data[element.name].type === "text") { 
+                        if (["text", "tel", "date", "month", "email", "number", "datetime", "datetime-local", "week", "url", "time", "color"].includes(data[element.name].type)) { 
                             element.value = data[element.name].val;
                         } else if (data[element.name].type === "radio" && data[element.name].val === element.value) {
                             element.checked = true;
@@ -129,9 +129,9 @@ class FormSaver {
             if (elem === {}) {reject("Form element not found"); return};
             var formToSend = {};
             elem.querySelectorAll("input, select").forEach(function (element) {
-                if (element.type === "text") {
+                if (["text", "tel", "date", "month", "email", "number", "datetime", "datetime-local", "week", "url", "time", "color"].includes(element.type)) {
                     formToSend[element.name] = {
-                        type: "text",
+                        type: element.type,
                         val: element.value
                     };
                 } else if (element.type === "radio") {
