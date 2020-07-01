@@ -40,8 +40,8 @@ const fs = new FormSaver();
 ```
 Every time the user changes input, call `<FormSaver>.setBackup()`, using the form's name or element as argument:
 ```js
-document.myForm.querySelectorAll("input").forEach(function (elem) {
-    elem.addEventListener(function (e) {
+document.querySelectorAll(`form[name=myForm] input`).forEach(function (elem) {
+    elem.addEventListener("input", async function (e) {
         var backupKey = await fs.setBackup("myForm");
         // or
         var backupKey = await fs.setBackup(document.querySelector(`form[name=myForm]`));
